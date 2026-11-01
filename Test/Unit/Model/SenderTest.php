@@ -125,7 +125,7 @@ class SenderTest extends TestCase
     public function testGivesUpAfterTheLastAttempt(): void
     {
         $this->row['attempts'] = (string) Sender::MAX_ATTEMPTS;
-        $this->clientAnswer = new ApiException('Bad gateway', 502);
+        $this->clientAnswer = new ApiException('Service unavailable', 503);
 
         self::assertSame(Sender::RESULT_FAILED, $this->sender()->send(5));
         self::assertSame(Message::STATUS_FAILED, $this->updates[1]['status']);

@@ -97,11 +97,11 @@ class ClientTest extends TestCase
     public function testServerErrorPageIsRetried(): void
     {
         $exception = $this->sendExpectingError(
-            $this->client(502, '<html><body><h1>502 Bad Gateway</h1></body></html>')
+            $this->client(503, '<html><body><h1>503 Service Unavailable</h1></body></html>')
         );
 
         self::assertTrue($exception->isRetryable());
-        self::assertSame('502 Bad Gateway', $exception->getMessage());
+        self::assertSame('503 Service Unavailable', $exception->getMessage());
     }
 
     public function testUnreachableServerIsRetried(): void
