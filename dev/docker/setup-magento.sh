@@ -8,10 +8,10 @@ set -euo pipefail
 STACK_ID="$1"
 cd "$(dirname "$0")"
 # shellcheck disable=SC1090
-source "./${STACK_ID}.env"
+source "./${STACK_ID}.vars"
 PROJECT="smst-int-magento${STACK_ID}"
 PHP_CONTAINER="${PROJECT}-php-1"
-compose() { docker compose -p "$PROJECT" --env-file "${STACK_ID}.env" "$@"; }
+compose() { docker compose -p "$PROJECT" --env-file "${STACK_ID}.vars" "$@"; }
 as_www() { docker exec -u www-data "$PHP_CONTAINER" sh -c "cd /var/www/html && $1"; }
 
 compose build php

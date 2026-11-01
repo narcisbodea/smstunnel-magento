@@ -166,9 +166,12 @@ Send only texts that people expect from you: order updates, alerts to yourself, 
 The module has unit tests (`Test/Unit`, run with Magento's `dev/tests/unit/phpunit.xml.dist`) and, under `dev/`, a Docker stack and an end-to-end test that places real orders against a local SMSTunnel test server. `dev/` is not part of the package.
 
 ```bash
-dev/docker/setup-magento.sh 249        # Magento 2.4.9 on PHP 8.5, at http://127.0.0.1:8476/
+dev/docker/setup-magento.sh 249        # Magento 2.4.9 on PHP 8.5, at http://127.0.0.1:8476/ (246: 2.4.6 on PHP 8.1)
+dev/check.sh smst-int-magento249       # Magento coding standard, PHPStan level 8, unit tests
 SMSTUNNEL_KEY_FILE=/path/to/test-key.json STACK=smst-int-magento249 WEB_PORT=8476 node dev/e2e/e2e.mjs
 ```
+
+The end-to-end test needs a local SMSTunnel test server and its key; it never talks to smstunnel.io.
 
 ## Trademarks
 

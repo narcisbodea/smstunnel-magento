@@ -1,8 +1,8 @@
 # Local Magento test stack for SMSTunnel for Magento (dev only, not part of the package).
 #
-#   docker compose -p smst-int-magento249 --env-file 249.env up -d
+#   docker compose -p smst-int-magento249 --env-file 249.vars up -d
 #   ...
-#   docker compose -p smst-int-magento249 --env-file 249.env down -v
+#   docker compose -p smst-int-magento249 --env-file 249.vars down -v
 #
 # The module folder is mounted read-only at /module and installed through a Composer path repository.
 services:

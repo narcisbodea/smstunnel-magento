@@ -9,6 +9,5 @@
 *.zip
 .env
 .env.*
-!dev/docker/*.env
 .idea/
 .vscode/
