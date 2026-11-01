@@ -20,7 +20,8 @@ if (!/^http:\/\/(127\.0\.0\.1|localhost)(:\d+)?$/.test(key.serverUrl)) {
   throw new Error('This test only runs against a local SMSTunnel server.');
 }
 const SERVER_IN_DOCKER = key.serverUrl.replace(/127\.0\.0\.1|localhost/, 'host.docker.internal');
-const DOWN_SERVER = 'http://host.docker.internal:3199';
+// The PHP container's own loopback: nothing listens there, so the connection is refused at once.
+const DOWN_SERVER = 'http://127.0.0.1:9';
 const SKU = 'smst-e2e-tee';
 // Recipients unique to this stack: +1 415 555 <last two digits of the port><n>.
 const P = PORT.slice(-2);

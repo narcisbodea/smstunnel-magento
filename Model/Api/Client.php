@@ -63,8 +63,13 @@ class Client
      * @return SendResult
      * @throws ApiException when SMSTunnel refuses the text or cannot be reached
      */
-    public function send(string $serverUrl, string $apiKey, string $to, string $message, ?string $deviceId): SendResult
-    {
+    public function send(
+        string $serverUrl,
+        #[\SensitiveParameter] string $apiKey,
+        string $to,
+        string $message,
+        ?string $deviceId
+    ): SendResult {
         $body = ['to' => $to, 'message' => $message];
         if ($deviceId !== null && $deviceId !== '') {
             $body['deviceId'] = $deviceId;
@@ -90,7 +95,7 @@ class Client
      * @return array<string,mixed>
      * @throws ApiException
      */
-    private function post(string $serverUrl, string $path, string $apiKey, array $body): array
+    private function post(string $serverUrl, string $path, #[\SensitiveParameter] string $apiKey, array $body): array
     {
         $url = $this->checkServerUrl($serverUrl) . $path;
 
