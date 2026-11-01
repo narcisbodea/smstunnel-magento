@@ -1,0 +1,65 @@
+# Local Magento test stack for SMSTunnel for Magento (dev only, not part of the package).
+#
+#   docker compose -p smst-int-magento249 --env-file 249.env up -d
+#   ...
+#   docker compose -p smst-int-magento249 --env-file 249.env down -v
+#
+# The module folder is mounted read-only at /module and installed through a Composer path repository.
+services:
+  db:
+    image: ${DB_IMAGE:-mariadb:11.4}
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: magento
+      MARIADB_USER: magento
+      MARIADB_PASSWORD: magento
+    volumes:
+      - db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 60
+
+  search:
+    image: ${SEARCH_IMAGE:-opensearchproject/opensearch:2.19.7}
+    environment:
+      discovery.type: single-node
+      DISABLE_SECURITY_PLUGIN: "true"
+      DISABLE_INSTALL_DEMO_CONFIG: "true"
+      OPENSEARCH_JAVA_OPTS: "-Xms512m -Xmx512m"
+    volumes:
+      - search:/usr/share/opensearch/data
+
+  php:
+    build:
+      context: .
+      args:
+        PHP_VERSION: ${PHP_VERSION:-8.4}
+    image: smst-int-magento-php:${PHP_VERSION:-8.4}
+    volumes:
+      - code:/var/www/html
+      - composer-cache:/composer-cache
+      - ../..:/module:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  web:
+    image: nginx:alpine
+    volumes:
+      - code:/var/www/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "127.0.0.1:${WEB_PORT:-8476}:80"
+    depends_on:
+      - php
+
+volumes:
+  db: {}
+  search: {}
+  code: {}
+  composer-cache:
+    name: smst-int-composer-cache

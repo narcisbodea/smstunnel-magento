@@ -1,0 +1,237 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright NARBOWEB SRL
+ * @license   MIT
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="smstunnel" translate="label" sortOrder="450">
+            <label>SMSTunnel</label>
+        </tab>
+        <section id="smstunnel" translate="label" sortOrder="10"
+                 showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Order Texts</label>
+            <tab>smstunnel</tab>
+            <resource>SmsTunnel_SmsNotifications::config</resource>
+
+            <group id="general" translate="label comment" sortOrder="10"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Your Phone</label>
+                <comment><![CDATA[Texts go out from your own Android phone, from your own number:
+customers see a number they know and can reply to. Your phone needs the
+<a href="https://play.google.com/store/apps/details?id=io.smstunnel.app" target="_blank"
+rel="noopener">SMSTunnel app from Google Play</a>, signed in to your SMSTunnel account.]]></comment>
+                <field id="enabled" translate="label" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Send Order Texts</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="api_key" translate="label comment" type="obscure" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>API Key</label>
+                    <comment><![CDATA[In your <a href="https://dashboard.smstunnel.io/apps" target="_blank"
+rel="noopener">SMSTunnel dashboard</a>, open <strong>Apps</strong> &rarr; <strong>Add an app</strong>
+and copy its key.]]></comment>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field>
+                <field id="device_id" translate="label comment" type="text" sortOrder="30"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Phone ID</label>
+                    <comment><![CDATA[Optional. Leave it empty to let SMSTunnel use one of your phones, or paste
+the ID of one phone from <strong>Phones</strong> in your SMSTunnel dashboard (it has a Copy button).]]></comment>
+                    <backend_model>SmsTunnel\SmsNotifications\Model\Config\Backend\Trimmed</backend_model>
+                </field>
+                <field id="default_country_code" translate="label comment" type="text" sortOrder="40"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Country Code</label>
+                    <comment><![CDATA[For example +1 or +44. Completes numbers written without a country code
+when the address has no country, and your own numbers below. Leave it empty to use the store's default
+country.]]></comment>
+                    <backend_model>SmsTunnel\SmsNotifications\Model\Config\Backend\CountryCode</backend_model>
+                </field>
+                <field id="test_number" translate="label comment" type="text" sortOrder="50"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Test Number</label>
+                    <comment>Where the test text goes, for example your own mobile number.</comment>
+                    <backend_model>SmsTunnel\SmsNotifications\Model\Config\Backend\Trimmed</backend_model>
+                </field>
+                <field id="send_test" translate="label comment" type="button" sortOrder="60"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send a Test Text</label>
+                    <frontend_model>SmsTunnel\SmsNotifications\Block\Adminhtml\System\Config\SendTestButton</frontend_model>
+                    <comment>Uses the saved API key and phone: save the configuration first.</comment>
+                </field>
+            </group>
+
+            <group id="owner" translate="label comment" sortOrder="20"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>New-Order Texts to You</label>
+                <comment>A text to you and your team for each new order.</comment>
+                <field id="enabled" translate="label" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Text Me About New Orders</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="numbers" translate="label comment" type="textarea" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Your Numbers</label>
+                    <comment>One number per line, for example +14155550123. Each number gets its own text.</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="template" translate="label comment" type="textarea" sortOrder="30"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Text</label>
+                    <comment><![CDATA[Placeholders: {{order_id}}, {{customer_firstname}}, {{customer_lastname}},
+{{grand_total}}, {{store_name}}, {{status}}.]]></comment>
+                    <validate>required-entry validate-length maximum-length-1600</validate>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="order_placed" translate="label" sortOrder="30"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Customer Text: Order Placed</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Send This Text</label>
+                    <comment><![CDATA[Sent when the order is placed. For payments finished on another site,
+it waits until the payment goes through.]]></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="template" translate="label comment" type="textarea" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Text</label>
+                    <comment><![CDATA[Placeholders: {{order_id}}, {{customer_firstname}}, {{customer_lastname}},
+{{grand_total}}, {{store_name}}, {{status}}.]]></comment>
+                    <validate>required-entry validate-length maximum-length-1600</validate>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="invoice_created" translate="label" sortOrder="40"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Customer Text: Invoice Created</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Send This Text</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="template" translate="label comment" type="textarea" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Text</label>
+                    <comment><![CDATA[Placeholders: {{order_id}}, {{customer_firstname}}, {{customer_lastname}},
+{{grand_total}}, {{store_name}}, {{status}}.]]></comment>
+                    <validate>required-entry validate-length maximum-length-1600</validate>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="shipment_created" translate="label" sortOrder="50"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Customer Text: Shipment Created</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Send This Text</label>
+                    <comment>Add the tracking number when you create the shipment, so it goes into the text.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="template" translate="label comment" type="textarea" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Text</label>
+                    <comment><![CDATA[Placeholders: {{order_id}}, {{customer_firstname}}, {{customer_lastname}},
+{{grand_total}}, {{store_name}}, {{status}}, {{tracking_number}}, {{carrier}}. A line with {{tracking_number}}
+or {{carrier}} is left out when the shipment has no tracking number.]]></comment>
+                    <validate>required-entry validate-length maximum-length-1600</validate>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="order_canceled" translate="label" sortOrder="60"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Customer Text: Order Canceled</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Send This Text</label>
+                    <comment>Not sent for orders whose payment was never finished.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="template" translate="label comment" type="textarea" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Text</label>
+                    <comment><![CDATA[Placeholders: {{order_id}}, {{customer_firstname}}, {{customer_lastname}},
+{{grand_total}}, {{store_name}}, {{status}}.]]></comment>
+                    <validate>required-entry validate-length maximum-length-1600</validate>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="status_changed" translate="label" sortOrder="70"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Customer Text: Order Status Changed</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Send This Text</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="statuses" translate="label comment" type="multiselect" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>When the Order Moves To</label>
+                    <comment><![CDATA[The text goes out when an order gets one of these statuses. Canceled orders
+get the Order Canceled text instead, while that text is on.]]></comment>
+                    <source_model>SmsTunnel\SmsNotifications\Model\Config\Source\OrderStatus</source_model>
+                    <can_be_empty>1</can_be_empty>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="template" translate="label comment" type="textarea" sortOrder="30"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Text</label>
+                    <comment><![CDATA[Placeholders: {{order_id}}, {{customer_firstname}}, {{customer_lastname}},
+{{grand_total}}, {{store_name}}, {{status}}.]]></comment>
+                    <validate>required-entry validate-length maximum-length-1600</validate>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="log" translate="label" sortOrder="80" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Sent Texts</label>
+                <field id="retention_days" translate="label comment" type="text" sortOrder="10"
+                       showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Keep Texts for (Days)</label>
+                    <comment><![CDATA[Texts are listed under <strong>Sales &rarr; SMSTunnel Texts</strong>.
+Older ones are deleted every night; 0 keeps them.]]></comment>
+                    <validate>validate-digits validate-zero-or-greater</validate>
+                </field>
+            </group>
+
+            <!-- Not shown in the admin. For a test server only:
+                 bin/magento config:set smstunnel/advanced/server_url <url> -->
+            <group id="advanced" translate="label" sortOrder="90" showInDefault="0" showInWebsite="0" showInStore="0">
+                <label>Advanced</label>
+                <field id="server_url" translate="label" type="text" sortOrder="10"
+                       showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>SMSTunnel Server URL</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

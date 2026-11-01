@@ -1,0 +1,16 @@
+<?php
+/**
+ * @copyright NARBOWEB SRL
+ * @license   MIT
+ */
+/**
+ * @var \SmsTunnel\SmsNotifications\Block\Adminhtml\System\Config\SendTestButton $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+?>
+<div class="smstunnel-send-test" data-mage-init="<?= $escaper->escapeHtmlAttr($block->getWidgetInit()) ?>">
+    <button type="button" class="action-default scalable">
+        <span><?= $escaper->escapeHtml(__('Send a Test Text')) ?></span>
+    </button>
+    <p class="smstunnel-send-test-result" role="status" aria-live="polite"></p>
+</div>

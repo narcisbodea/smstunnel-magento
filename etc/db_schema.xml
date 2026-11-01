@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright NARBOWEB SRL
+ * @license   MIT
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="smstunnel_message" resource="default" engine="innodb" comment="SMSTunnel texts">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="smallint" name="store_id" unsigned="true" nullable="true" comment="Store view ID"/>
+        <column xsi:type="varchar" name="event" length="32" nullable="false" comment="What the text is about"/>
+        <column xsi:type="int" name="order_id" unsigned="true" nullable="true" comment="Order ID"/>
+        <column xsi:type="varchar" name="order_increment_id" length="50" nullable="true" comment="Order number"/>
+        <column xsi:type="varchar" name="dedupe_key" length="128"
+                nullable="false" comment="Keeps a text from being queued twice"/>
+        <column xsi:type="varchar" name="recipient" length="32" nullable="false" comment="Number the text goes to"/>
+        <column xsi:type="text" name="message" nullable="false" comment="Text"/>
+        <column xsi:type="varchar" name="status" length="16" nullable="false" default="pending" comment="Status"/>
+        <column xsi:type="smallint" name="attempts" unsigned="true" nullable="false" default="0" comment="Attempts"/>
+        <column xsi:type="timestamp" name="next_attempt_at" nullable="true" comment="Next attempt (UTC)"/>
+        <column xsi:type="varchar" name="smstunnel_message_id" length="64"
+                nullable="true" comment="SMSTunnel message ID"/>
+        <column xsi:type="text" name="details" nullable="true" comment="Why it failed or was skipped"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false"
+                default="CURRENT_TIMESTAMP" comment="Created (UTC)"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false"
+                default="CURRENT_TIMESTAMP" on_update="true" comment="Updated (UTC)"/>
+        <column xsi:type="timestamp" name="sent_at" nullable="true" comment="Handed to the phone (UTC)"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="SMSTUNNEL_MESSAGE_DEDUPE_KEY">
+            <column name="dedupe_key"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="SMSTUNNEL_MESSAGE_STORE_ID_STORE_STORE_ID" table="smstunnel_message"
+                    column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="SET NULL"/>
+        <index referenceId="SMSTUNNEL_MESSAGE_STATUS_NEXT_ATTEMPT_AT" indexType="btree">
+            <column name="status"/>
+            <column name="next_attempt_at"/>
+        </index>
+        <index referenceId="SMSTUNNEL_MESSAGE_ORDER_ID" indexType="btree">
+            <column name="order_id"/>
+        </index>
+        <index referenceId="SMSTUNNEL_MESSAGE_CREATED_AT" indexType="btree">
+            <column name="created_at"/>
+        </index>
+    </table>
+</schema>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright NARBOWEB SRL
+ * @license   MIT
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <!-- Sends texts the queue consumer has not sent yet, and retries the ones that could not go out. -->
+        <job name="smstunnel_send_pending" instance="SmsTunnel\SmsNotifications\Cron\SendPending" method="execute">
+            <schedule>* * * * *</schedule>
+        </job>
+        <job name="smstunnel_cleanup" instance="SmsTunnel\SmsNotifications\Cron\Cleanup" method="execute">
+            <schedule>17 3 * * *</schedule>
+        </job>
+    </group>
+</config>

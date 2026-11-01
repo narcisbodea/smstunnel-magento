@@ -1,0 +1,14 @@
+/vendor/
+/composer.lock
+/.phpunit.result.cache
+/.phpunit.cache/
+/dev/tools/vendor/
+/dev/tools/composer.lock
+/dev/e2e/out/
+/build/
+*.zip
+.env
+.env.*
+!dev/docker/*.env
+.idea/
+.vscode/

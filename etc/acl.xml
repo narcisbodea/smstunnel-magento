@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright NARBOWEB SRL
+ * @license   MIT
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Sales::sales">
+                    <resource id="Magento_Sales::sales_operation">
+                        <resource id="SmsTunnel_SmsNotifications::messages" title="SMSTunnel Texts"
+                                  translate="title" sortOrder="90">
+                            <resource id="SmsTunnel_SmsNotifications::messages_manage"
+                                      title="Send Again and Delete" translate="title" sortOrder="10"/>
+                        </resource>
+                    </resource>
+                </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="SmsTunnel_SmsNotifications::config" title="SMSTunnel"
+                                      translate="title" sortOrder="90"/>
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

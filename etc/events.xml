@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright NARBOWEB SRL
+ * @license   MIT
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <!-- Checkout, REST/GraphQL checkout and orders created in the admin. -->
+    <event name="sales_model_service_quote_submit_success">
+        <observer name="smstunnel_order_placed" instance="SmsTunnel\SmsNotifications\Observer\OrderPlaced"/>
+    </event>
+    <!-- Also fired by multishipping checkout, with all of its orders. -->
+    <event name="checkout_submit_all_after">
+        <observer name="smstunnel_order_placed" instance="SmsTunnel\SmsNotifications\Observer\OrderPlaced"/>
+    </event>
+    <event name="sales_order_save_commit_after">
+        <observer name="smstunnel_order_saved" instance="SmsTunnel\SmsNotifications\Observer\OrderSaved"/>
+    </event>
+    <event name="sales_order_invoice_save_commit_after">
+        <observer name="smstunnel_invoice_saved" instance="SmsTunnel\SmsNotifications\Observer\InvoiceSaved"/>
+    </event>
+    <event name="sales_order_shipment_save_commit_after">
+        <observer name="smstunnel_shipment_saved" instance="SmsTunnel\SmsNotifications\Observer\ShipmentSaved"/>
+    </event>
+</config>

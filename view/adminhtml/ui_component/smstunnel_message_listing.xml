@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @copyright NARBOWEB SRL
+ * @license   MIT
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">smstunnel_message_listing.smstunnel_message_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>smstunnel_message_columns</spinner>
+        <deps>
+            <dep>smstunnel_message_listing.smstunnel_message_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="smstunnel_message_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">entity_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>SmsTunnel_SmsNotifications::messages</aclResource>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider"
+                      name="smstunnel_message_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters"/>
+        <massaction name="listing_massaction">
+            <action name="retry">
+                <settings>
+                    <confirm>
+                        <message translate="true">Send the selected texts again?</message>
+                        <title translate="true">Send Again</title>
+                    </confirm>
+                    <url path="smstunnel/message/retry"/>
+                    <type>retry</type>
+                    <label translate="true">Send Again</label>
+                </settings>
+            </action>
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Delete the selected texts? Waiting ones will not be sent.</message>
+                        <title translate="true">Delete</title>
+                    </confirm>
+                    <url path="smstunnel/message/delete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+        </massaction>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="smstunnel_message_columns">
+        <selectionsColumn name="ids" sortOrder="0">
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="entity_id" sortOrder="10">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>desc</sorting>
+            </settings>
+        </column>
+        <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date"
+                component="Magento_Ui/js/grid/columns/date" sortOrder="20">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Queued</label>
+            </settings>
+        </column>
+        <column name="event" component="Magento_Ui/js/grid/columns/select" sortOrder="30">
+            <settings>
+                <options class="SmsTunnel\SmsNotifications\Model\Source\MessageEvent"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <label translate="true">Text For</label>
+            </settings>
+        </column>
+        <column name="order_increment_id" sortOrder="40">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Order</label>
+            </settings>
+        </column>
+        <column name="recipient" sortOrder="50">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">To</label>
+            </settings>
+        </column>
+        <column name="message" sortOrder="60">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Text</label>
+            </settings>
+        </column>
+        <column name="status" component="Magento_Ui/js/grid/columns/select" sortOrder="70">
+            <settings>
+                <options class="SmsTunnel\SmsNotifications\Model\Source\MessageStatus"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <label translate="true">Status</label>
+            </settings>
+        </column>
+        <column name="details" sortOrder="80">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Details</label>
+            </settings>
+        </column>
+        <column name="attempts" sortOrder="90">
+            <settings>
+                <label translate="true">Attempts</label>
+            </settings>
+        </column>
+        <column name="sent_at" class="Magento\Ui\Component\Listing\Columns\Date"
+                component="Magento_Ui/js/grid/columns/date" sortOrder="100">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Sent</label>
+            </settings>
+        </column>
+        <column name="store_id" class="Magento\Store\Ui\Component\Listing\Column\Store" sortOrder="110">
+            <settings>
+                <label translate="true">Store View</label>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+        <column name="smstunnel_message_id" sortOrder="120">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">SMSTunnel ID</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+    </columns>
+</listing>

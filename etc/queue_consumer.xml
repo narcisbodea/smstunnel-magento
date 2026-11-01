@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright NARBOWEB SRL
+ * @license   MIT
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/consumer.xsd">
+    <consumer name="smstunnel.message.send" queue="smstunnel.message.send" connection="db" maxMessages="100"
+              consumerInstance="Magento\Framework\MessageQueue\Consumer"
+              handler="SmsTunnel\SmsNotifications\Model\Queue\Consumer::process"/>
+</config>

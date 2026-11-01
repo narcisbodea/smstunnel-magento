@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright NARBOWEB SRL
+ * @license   MIT
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <smstunnel>
+            <general>
+                <enabled>0</enabled>
+                <api_key backend_model="Magento\Config\Model\Config\Backend\Encrypted"/>
+            </general>
+            <owner>
+                <enabled>0</enabled>
+                <template>New order #{{order_id}} at {{store_name}}: {{grand_total}} from {{customer_firstname}} {{customer_lastname}}.</template>
+            </owner>
+            <order_placed>
+                <enabled>1</enabled>
+                <template>Hi {{customer_firstname}}, thanks for your order #{{order_id}} at {{store_name}}. Total: {{grand_total}}. We will text you when it ships.</template>
+            </order_placed>
+            <invoice_created>
+                <enabled>0</enabled>
+                <template>Hi {{customer_firstname}}, your order #{{order_id}} at {{store_name}} has been invoiced. Total: {{grand_total}}.</template>
+            </invoice_created>
+            <shipment_created>
+                <enabled>1</enabled>
+                <template>Good news, {{customer_firstname}}: your order #{{order_id}} from {{store_name}} is on its way.
+Tracking number: {{tracking_number}}</template>
+            </shipment_created>
+            <order_canceled>
+                <enabled>1</enabled>
+                <template>{{store_name}}: your order #{{order_id}} has been canceled.</template>
+            </order_canceled>
+            <status_changed>
+                <enabled>0</enabled>
+                <statuses>holded</statuses>
+                <template>{{store_name}}: your order #{{order_id}} is now {{status}}.</template>
+            </status_changed>
+            <log>
+                <retention_days>90</retention_days>
+            </log>
+            <advanced>
+                <server_url>https://smstunnel.io</server_url>
+            </advanced>
+        </smstunnel>
+    </default>
+</config>

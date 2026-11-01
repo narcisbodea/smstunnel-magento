@@ -1,0 +1,32 @@
+{
+    "smstunnel_message": {
+        "column": {
+            "entity_id": true,
+            "store_id": true,
+            "event": true,
+            "order_id": true,
+            "order_increment_id": true,
+            "dedupe_key": true,
+            "recipient": true,
+            "message": true,
+            "status": true,
+            "attempts": true,
+            "next_attempt_at": true,
+            "smstunnel_message_id": true,
+            "details": true,
+            "created_at": true,
+            "updated_at": true,
+            "sent_at": true
+        },
+        "index": {
+            "SMSTUNNEL_MESSAGE_STATUS_NEXT_ATTEMPT_AT": true,
+            "SMSTUNNEL_MESSAGE_ORDER_ID": true,
+            "SMSTUNNEL_MESSAGE_CREATED_AT": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "SMSTUNNEL_MESSAGE_DEDUPE_KEY": true,
+            "SMSTUNNEL_MESSAGE_STORE_ID_STORE_STORE_ID": true
+        }
+    }
+}
