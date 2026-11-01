@@ -197,7 +197,7 @@ class SenderTest extends TestCase
             return count($this->updates) === 1 ? $this->claimResult : 1;
         });
         $resource = $this->createStub(MessageResource::class);
-        $resource->method('getConnection')->willReturn($connection);
+        $resource->method('getAdapter')->willReturn($connection);
         $resource->method('getMainTable')->willReturn('smstunnel_message');
 
         $dateTime = $this->createStub(DateTime::class);

@@ -169,8 +169,8 @@ class ClientTest extends TestCase
         $curl->method('setTimeout')->willReturnCallback(function ($value): void {
             $this->sent['timeout'] = $value;
         });
-        $curl->method('setOption')->willReturnCallback(function ($name, $value): void {
-            $this->sent['options'][$name] = $value;
+        $curl->method('setOptions')->willReturnCallback(function ($options): void {
+            $this->sent['options'] = $options;
         });
         $curl->method('post')->willReturnCallback(function ($url, $body): void {
             $this->sent['url'] = $url;

@@ -12,7 +12,8 @@ use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Order\Address;
 use Magento\Sales\Model\Order\Invoice;
 use Magento\Sales\Model\Order\Shipment;
-use Magento\Sales\Model\Order\StatusFactory;
+use Magento\Sales\Model\Order\Status;
+use Magento\Sales\Model\ResourceModel\Order\Status\CollectionFactory as StatusCollectionFactory;
 
 /**
  * Decides which texts an order event gets, fills their templates and queues them.
@@ -40,9 +41,9 @@ class OrderTexts
     private $renderer;
 
     /**
-     * @var StatusFactory
+     * @var StatusCollectionFactory
      */
-    private $statusFactory;
+    private $statusCollectionFactory;
 
     /**
      * @var Random
@@ -61,7 +62,7 @@ class OrderTexts
      * @param Outbox $outbox
      * @param PhoneNumber $phoneNumber
      * @param TemplateRenderer $renderer
-     * @param StatusFactory $statusFactory
+     * @param StatusCollectionFactory $statusCollectionFactory
      * @param Random $random
      */
     public function __construct(
@@ -69,14 +70,14 @@ class OrderTexts
         Outbox $outbox,
         PhoneNumber $phoneNumber,
         TemplateRenderer $renderer,
-        StatusFactory $statusFactory,
+        StatusCollectionFactory $statusCollectionFactory,
         Random $random
     ) {
         $this->config = $config;
         $this->outbox = $outbox;
         $this->phoneNumber = $phoneNumber;
         $this->renderer = $renderer;
-        $this->statusFactory = $statusFactory;
+        $this->statusCollectionFactory = $statusCollectionFactory;
         $this->random = $random;
     }
 
@@ -338,8 +339,12 @@ class OrderTexts
         if ($code === '') {
             return '';
         }
-        $status = $this->statusFactory->create()->load($code);
-        $label = $status->getData('status') !== null ? trim((string) $status->getStoreLabel($order->getStoreId())) : '';
+        $status = $this->statusCollectionFactory->create()
+            ->addFieldToFilter('main_table.status', $code)
+            ->getFirstItem();
+        $label = $status instanceof Status && $status->getData('status') !== null
+            ? trim((string) $status->getStoreLabel($order->getStoreId()))
+            : '';
 
         return $label !== '' ? $label : $code;
     }

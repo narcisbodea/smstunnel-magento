@@ -97,8 +97,7 @@ class Client
         /** @var Curl $curl */
         $curl = $this->curlFactory->create();
         $curl->setTimeout(self::TIMEOUT);
-        $curl->setOption(CURLOPT_CONNECTTIMEOUT, self::CONNECT_TIMEOUT);
-        $curl->setOption(CURLOPT_FOLLOWLOCATION, false);
+        $curl->setOptions([CURLOPT_CONNECTTIMEOUT => self::CONNECT_TIMEOUT, CURLOPT_FOLLOWLOCATION => false]);
         $curl->setHeaders([
             'X-API-Key' => $apiKey,
             'Content-Type' => 'application/json',
@@ -109,7 +108,7 @@ class Client
         ]);
 
         try {
-            $curl->post($url, $this->json->serialize($body));
+            $curl->post($url, (string) $this->json->serialize($body));
         } catch (\Exception $exception) {
             throw new ApiException('Could not reach SMSTunnel: ' . $exception->getMessage(), 0, null, null, $exception);
         }

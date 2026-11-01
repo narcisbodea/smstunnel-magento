@@ -87,7 +87,7 @@ class Retry extends Action implements HttpPostActionInterface
             $collection->addFieldToFilter('status', ['in' => [Message::STATUS_FAILED, Message::STATUS_SENT]]);
             $ids = array_map('intval', $collection->getAllIds());
             if ($ids !== []) {
-                $this->resource->getConnection()->update(
+                $this->resource->getAdapter()->update(
                     $this->resource->getMainTable(),
                     [
                         'status' => Message::STATUS_PENDING,
@@ -105,7 +105,7 @@ class Retry extends Action implements HttpPostActionInterface
                 }
             }
             $this->messageManager->addSuccessMessage(
-                __(
+                (string) __(
                     '%1 text(s) will be sent again. Skipped texts and texts still waiting are left as they are.',
                     count($ids)
                 )

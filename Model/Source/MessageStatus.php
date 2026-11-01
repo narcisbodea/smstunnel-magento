@@ -16,7 +16,9 @@ use SmsTunnel\SmsNotifications\Model\Message;
 class MessageStatus implements OptionSourceInterface
 {
     /**
-     * @inheritdoc
+     * Options for the grid's column and filter.
+     *
+     * @return array<int,array{value:string,label:\Magento\Framework\Phrase}>
      */
     public function toOptionArray()
     {

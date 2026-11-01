@@ -97,7 +97,7 @@ class Sender
      */
     public function send(int $id): string
     {
-        $connection = $this->resource->getConnection();
+        $connection = $this->resource->getAdapter();
         $table = $this->resource->getMainTable();
         $now = $this->dateTime->gmtDate();
 
@@ -177,7 +177,7 @@ class Sender
      */
     public function getDueIds(int $limit): array
     {
-        $connection = $this->resource->getConnection();
+        $connection = $this->resource->getAdapter();
         $select = $connection->select()
             ->from($this->resource->getMainTable(), ['entity_id'])
             ->where('status = ?', Message::STATUS_PENDING)
@@ -197,7 +197,7 @@ class Sender
     {
         $cutoff = gmdate('Y-m-d H:i:s', $this->dateTime->gmtTimestamp() - self::STUCK_MINUTES * 60);
 
-        return $this->resource->getConnection()->update(
+        return $this->resource->getAdapter()->update(
             $this->resource->getMainTable(),
             ['status' => Message::STATUS_PENDING, 'updated_at' => $this->dateTime->gmtDate()],
             ['status = ?' => Message::STATUS_SENDING, 'updated_at < ?' => $cutoff]
@@ -231,7 +231,7 @@ class Sender
         $details = $exception->describe();
         if ($exception->isRetryable() && $attempts < self::MAX_ATTEMPTS) {
             $next = $this->dateTime->gmtTimestamp() + $this->retryDelay($attempts, $exception->getRetryAfter());
-            $this->resource->getConnection()->update(
+            $this->resource->getAdapter()->update(
                 $this->resource->getMainTable(),
                 [
                     'status' => Message::STATUS_PENDING,
@@ -262,7 +262,7 @@ class Sender
      */
     private function finish(int $id, string $status, string $details): void
     {
-        $this->resource->getConnection()->update(
+        $this->resource->getAdapter()->update(
             $this->resource->getMainTable(),
             [
                 'status' => $status,

@@ -118,13 +118,17 @@ class Outbox
             'updated_at' => $now,
         ];
 
-        $connection = $this->resource->getConnection();
+        $connection = $this->resource->getAdapter();
         try {
             $connection->insert($this->resource->getMainTable(), $row);
         } catch (DuplicateException $exception) {
             return null;
         }
-        $id = (int) $connection->lastInsertId($this->resource->getMainTable());
+        $id = (int) $connection->fetchOne(
+            $connection->select()
+                ->from($this->resource->getMainTable(), ['entity_id'])
+                ->where('dedupe_key = ?', $row['dedupe_key'])
+        );
 
         if ($status === Message::STATUS_PENDING && $publish) {
             $this->publish($id);
@@ -163,7 +167,7 @@ class Outbox
      */
     public function find(int $id): ?array
     {
-        $connection = $this->resource->getConnection();
+        $connection = $this->resource->getAdapter();
         $row = $connection->fetchRow(
             $connection->select()->from($this->resource->getMainTable())->where('entity_id = ?', $id)
         );

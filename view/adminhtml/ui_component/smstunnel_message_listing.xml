@@ -145,6 +145,7 @@
             <settings>
                 <label translate="true">Store View</label>
                 <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+                <visible>false</visible>
                 <sortable>false</sortable>
             </settings>
         </column>

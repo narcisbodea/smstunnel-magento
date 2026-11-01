@@ -91,9 +91,9 @@ class Send extends Action implements HttpPostActionInterface
         }
         $websiteId = (int) $this->getRequest()->getParam('website', 0);
         if ($websiteId > 0) {
-            $store = $this->storeManager->getWebsite($websiteId)->getDefaultStore();
-            if ($store !== null) {
-                return (int) $store->getId();
+            $groupId = (int) $this->storeManager->getWebsite($websiteId)->getDefaultGroupId();
+            if ($groupId > 0) {
+                return (int) $this->storeManager->getGroup((string) $groupId)->getDefaultStoreId();
             }
         }
         $store = $this->storeManager->getDefaultStoreView();

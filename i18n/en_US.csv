@@ -1,0 +1,123 @@
+"%1 text(s) were deleted.","%1 text(s) were deleted."
+"SMSTunnel Texts","SMSTunnel Texts"
+"%1 text(s) will be sent again. Skipped texts and texts still waiting are left as they are.","%1 text(s) will be sent again. Skipped texts and texts still waiting are left as they are."
+"The test text could not be sent: %1","The test text could not be sent: %1"
+"""%1"" is not a country calling code. Use one like +1, +44 or +40.","""%1"" is not a country calling code. Use one like +1, +44 or +40."
+"The text is empty: check its template.","The text is empty: check its template."
+"The text has %1 characters; at most %2 fit.","The text has %1 characters; at most %2 fit."
+"There is no phone number.","There is no phone number."
+"""%1"" is not a phone number.","""%1"" is not a phone number."
+"""%1"" has no country code, and there is no country to complete it with.","""%1"" has no country code, and there is no country to complete it with."
+"""%1"" does not look like a phone number of country code +%2.","""%1"" does not look like a phone number of country code +%2."
+"""%1"" is not a valid phone number.","""%1"" is not a valid phone number."
+"%1 is a satellite phone number.","%1 is a satellite phone number."
+"%1 is a short code or a premium-rate number.","%1 is a short code or a premium-rate number."
+"The database connection is not available.","The database connection is not available."
+"Texts were turned off for this store view before this one went out.","Texts were turned off for this store view before this one went out."
+"No API key is saved for this store view.","No API key is saved for this store view."
+"Your phone was offline: it sends the text as soon as it is back online.","Your phone was offline: it sends the text as soon as it is back online."
+"Order placed","Order placed"
+"New order (to you)","New order (to you)"
+"Invoice created","Invoice created"
+"Shipment created","Shipment created"
+"Order canceled","Order canceled"
+"Status changed","Status changed"
+"Test text","Test text"
+Waiting,Waiting
+Sending,Sending
+"Sent to your phone","Sent to your phone"
+Failed,Failed
+Skipped,Skipped
+"Save an API key first: in your SMSTunnel dashboard, open Apps, then Add an app.","Save an API key first: in your SMSTunnel dashboard, open Apps, then Add an app."
+"Type the number that should get the test text.","Type the number that should get the test text."
+"Test text from SMSTunnel for Magento: order texts from %1 will come from this phone.","Test text from SMSTunnel for Magento: order texts from %1 will come from this phone."
+"The test text could not be queued. Please try again.","The test text could not be queued. Please try again."
+"Sent to %1: your phone sends it now.","Sent to %1: your phone sends it now."
+"Not sent yet: %1 It will be tried again in the background.","Not sent yet: %1 It will be tried again in the background."
+"The test text was not sent: %1","The test text was not sent: %1"
+"Send a Test Text","Send a Test Text"
+Sending...,Sending...
+"The test text could not be sent.","The test text could not be sent."
+"The test text could not be sent. Please reload the page and try again.","The test text could not be sent. Please reload the page and try again."
+"Send Again and Delete","Send Again and Delete"
+SMSTunnel,SMSTunnel
+"Order Texts","Order Texts"
+"Your Phone","Your Phone"
+"Texts go out from your own Android phone, from your own number:
+customers see a number they know and can reply to. Your phone needs the
+<a href=""https://play.google.com/store/apps/details?id=io.smstunnel.app"" target=""_blank""
+rel=""noopener"">SMSTunnel app from Google Play</a>, signed in to your SMSTunnel account.","Texts go out from your own Android phone, from your own number:
+customers see a number they know and can reply to. Your phone needs the
+<a href=""https://play.google.com/store/apps/details?id=io.smstunnel.app"" target=""_blank""
+rel=""noopener"">SMSTunnel app from Google Play</a>, signed in to your SMSTunnel account."
+"Send Order Texts","Send Order Texts"
+"API Key","API Key"
+"In your <a href=""https://dashboard.smstunnel.io/apps"" target=""_blank""
+rel=""noopener"">SMSTunnel dashboard</a>, open <strong>Apps</strong> &rarr; <strong>Add an app</strong>
+and copy its key.","In your <a href=""https://dashboard.smstunnel.io/apps"" target=""_blank""
+rel=""noopener"">SMSTunnel dashboard</a>, open <strong>Apps</strong> &rarr; <strong>Add an app</strong>
+and copy its key."
+"Phone ID","Phone ID"
+"Optional. Leave it empty to let SMSTunnel use one of your phones, or paste
+the ID of one phone from <strong>Phones</strong> in your SMSTunnel dashboard (it has a Copy button).","Optional. Leave it empty to let SMSTunnel use one of your phones, or paste
+the ID of one phone from <strong>Phones</strong> in your SMSTunnel dashboard (it has a Copy button)."
+"Default Country Code","Default Country Code"
+"For example +1 or +44. Completes numbers written without a country code
+when the address has no country, and your own numbers below. Leave it empty to use the store's default
+country.","For example +1 or +44. Completes numbers written without a country code
+when the address has no country, and your own numbers below. Leave it empty to use the store's default
+country."
+"Test Number","Test Number"
+"Where the test text goes, for example your own mobile number.","Where the test text goes, for example your own mobile number."
+"Uses the saved API key and phone: save the configuration first.","Uses the saved API key and phone: save the configuration first."
+"New-Order Texts to You","New-Order Texts to You"
+"A text to you and your team for each new order.","A text to you and your team for each new order."
+"Text Me About New Orders","Text Me About New Orders"
+"Your Numbers","Your Numbers"
+"One number per line, for example +14155550123. Each number gets its own text.","One number per line, for example +14155550123. Each number gets its own text."
+Text,Text
+"Placeholders: {{order_id}}, {{customer_firstname}}, {{customer_lastname}},
+{{grand_total}}, {{store_name}}, {{status}}.","Placeholders: {{order_id}}, {{customer_firstname}}, {{customer_lastname}},
+{{grand_total}}, {{store_name}}, {{status}}."
+"Customer Text: Order Placed","Customer Text: Order Placed"
+"Send This Text","Send This Text"
+"Sent when the order is placed. For payments finished on another site,
+it waits until the payment goes through.","Sent when the order is placed. For payments finished on another site,
+it waits until the payment goes through."
+"Customer Text: Invoice Created","Customer Text: Invoice Created"
+"Customer Text: Shipment Created","Customer Text: Shipment Created"
+"Add the tracking number when you create the shipment, so it goes into the text.","Add the tracking number when you create the shipment, so it goes into the text."
+"Placeholders: {{order_id}}, {{customer_firstname}}, {{customer_lastname}},
+{{grand_total}}, {{store_name}}, {{status}}, {{tracking_number}}, {{carrier}}. A line with {{tracking_number}}
+or {{carrier}} is left out when the shipment has no tracking number.","Placeholders: {{order_id}}, {{customer_firstname}}, {{customer_lastname}},
+{{grand_total}}, {{store_name}}, {{status}}, {{tracking_number}}, {{carrier}}. A line with {{tracking_number}}
+or {{carrier}} is left out when the shipment has no tracking number."
+"Customer Text: Order Canceled","Customer Text: Order Canceled"
+"Not sent for orders whose payment was never finished.","Not sent for orders whose payment was never finished."
+"Customer Text: Order Status Changed","Customer Text: Order Status Changed"
+"When the Order Moves To","When the Order Moves To"
+"The text goes out when an order gets one of these statuses. Canceled orders
+get the Order Canceled text instead, while that text is on.","The text goes out when an order gets one of these statuses. Canceled orders
+get the Order Canceled text instead, while that text is on."
+"Sent Texts","Sent Texts"
+"Keep Texts for (Days)","Keep Texts for (Days)"
+"Texts are listed under <strong>Sales &rarr; SMSTunnel Texts</strong>.
+Older ones are deleted every night; 0 keeps them.","Texts are listed under <strong>Sales &rarr; SMSTunnel Texts</strong>.
+Older ones are deleted every night; 0 keeps them."
+Advanced,Advanced
+"SMSTunnel Server URL","SMSTunnel Server URL"
+"Send the selected texts again?","Send the selected texts again?"
+"Send Again","Send Again"
+"Delete the selected texts? Waiting ones will not be sent.","Delete the selected texts? Waiting ones will not be sent."
+Delete,Delete
+ID,ID
+Queued,Queued
+"Text For","Text For"
+Order,Order
+To,To
+Status,Status
+Details,Details
+Attempts,Attempts
+Sent,Sent
+"Store View","Store View"
+"SMSTunnel ID","SMSTunnel ID"

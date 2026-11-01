@@ -7,7 +7,9 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
-    <module name="SmsTunnel_SmsNotifications">
+    <!-- The schema is declarative (db_schema.xml). setup_version only registers the module in setup_module, so that
+         module:uninstall with its remove-data option runs Setup\Uninstall. It does not change between releases. -->
+    <module name="SmsTunnel_SmsNotifications" setup_version="1.0.0">
         <sequence>
             <module name="Magento_Store"/>
             <module name="Magento_Config"/>

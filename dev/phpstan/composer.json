@@ -1,0 +1,13 @@
+{
+    "name": "smstunnel/smstunnel-magento-dev-phpstan",
+    "description": "Dev only: static analysis of SMSTunnel for Magento against an installed Magento.",
+    "type": "project",
+    "license": "MIT",
+    "require": {
+        "bitexpert/phpstan-magento": "^0.44",
+        "phpstan/phpstan": "^2.1"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

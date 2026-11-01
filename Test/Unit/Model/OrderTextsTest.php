@@ -14,7 +14,8 @@ use Magento\Sales\Model\Order\Invoice;
 use Magento\Sales\Model\Order\Shipment;
 use Magento\Sales\Model\Order\Shipment\Track;
 use Magento\Sales\Model\Order\Status;
-use Magento\Sales\Model\Order\StatusFactory;
+use Magento\Sales\Model\ResourceModel\Order\Status\Collection as StatusCollection;
+use Magento\Sales\Model\ResourceModel\Order\Status\CollectionFactory as StatusCollectionFactory;
 use Magento\Store\Model\Store;
 use PHPUnit\Framework\TestCase;
 use SmsTunnel\SmsNotifications\Model\CallingCodes;
@@ -252,11 +253,13 @@ class OrderTextsTest extends TestCase
         });
 
         $status = $this->createStub(Status::class);
-        $status->method('load')->willReturnSelf();
         $status->method('getData')->willReturn('holded');
         $status->method('getStoreLabel')->willReturn('On Hold');
-        $statusFactory = $this->createStub(StatusFactory::class);
-        $statusFactory->method('create')->willReturn($status);
+        $statuses = $this->createStub(StatusCollection::class);
+        $statuses->method('addFieldToFilter')->willReturnSelf();
+        $statuses->method('getFirstItem')->willReturn($status);
+        $statusCollectionFactory = $this->createStub(StatusCollectionFactory::class);
+        $statusCollectionFactory->method('create')->willReturn($statuses);
         $random = $this->createStub(Random::class);
         $random->method('getUniqueHash')->willReturn('hash');
 
@@ -265,7 +268,7 @@ class OrderTextsTest extends TestCase
             $outbox,
             new PhoneNumber(new CallingCodes()),
             new TemplateRenderer(),
-            $statusFactory,
+            $statusCollectionFactory,
             $random
         );
     }

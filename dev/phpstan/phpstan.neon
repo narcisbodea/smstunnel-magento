@@ -1,0 +1,18 @@
+# Dev only: PHPStan with bitexpert/phpstan-magento, run inside the Magento test container:
+#   mkdir -p /tmp/phpstan-tools && cp /module/dev/phpstan/* /tmp/phpstan-tools/ && cd /tmp/phpstan-tools \
+#     && composer install && php vendor/bin/phpstan analyse --memory-limit=2G
+includes:
+    - vendor/bitexpert/phpstan-magento/extension.neon
+
+parameters:
+    level: 8
+    paths:
+        - /var/www/html/vendor/smstunnel/smstunnel-magento
+    excludePaths:
+        analyse:
+            - /var/www/html/vendor/smstunnel/smstunnel-magento/Test
+    bootstrapFiles:
+        - /var/www/html/vendor/autoload.php
+    magento:
+        magentoRoot: /var/www/html
+    tmpDir: /tmp/phpstan-cache

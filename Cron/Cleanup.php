@@ -57,7 +57,7 @@ class Cleanup
         }
         $cutoff = gmdate('Y-m-d H:i:s', $this->dateTime->gmtTimestamp() - $days * 86400);
 
-        return $this->resource->getConnection()->delete($this->resource->getMainTable(), [
+        return $this->resource->getAdapter()->delete($this->resource->getMainTable(), [
             'created_at < ?' => $cutoff,
             'status IN (?)' => [Message::STATUS_SENT, Message::STATUS_FAILED, Message::STATUS_SKIPPED],
         ]);

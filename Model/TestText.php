@@ -8,6 +8,7 @@ declare(strict_types=1);
 namespace SmsTunnel\SmsNotifications\Model;
 
 use Magento\Framework\Math\Random;
+use Magento\Store\Model\Store;
 use Magento\Store\Model\StoreManagerInterface;
 
 /**
@@ -97,9 +98,10 @@ class TestText
             return $this->answer(false, $result->getReason());
         }
 
+        $store = $this->storeManager->getStore($storeId);
         $text = (string) __(
             'Test text from SMSTunnel for Magento: order texts from %1 will come from this phone.',
-            $this->storeManager->getStore($storeId)->getFrontendName()
+            $store instanceof Store ? $store->getFrontendName() : $store->getName()
         );
         $id = $this->outbox->add(
             Message::EVENT_TEST,

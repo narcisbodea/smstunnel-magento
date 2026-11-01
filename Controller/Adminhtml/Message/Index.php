@@ -9,8 +9,8 @@ namespace SmsTunnel\SmsNotifications\Controller\Adminhtml\Message;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
+use Magento\Backend\Model\View\Result\Page;
 use Magento\Framework\App\Action\HttpGetActionInterface;
-use Magento\Framework\View\Result\Page;
 use Magento\Framework\View\Result\PageFactory;
 
 /**
@@ -42,9 +42,10 @@ class Index extends Action implements HttpGetActionInterface
      */
     public function execute()
     {
+        /** @var Page $page */
         $page = $this->pageFactory->create();
         $page->setActiveMenu('SmsTunnel_SmsNotifications::messages');
-        $page->getConfig()->getTitle()->prepend(__('SMSTunnel Texts'));
+        $page->getConfig()->getTitle()->prepend((string) __('SMSTunnel Texts'));
 
         return $page;
     }

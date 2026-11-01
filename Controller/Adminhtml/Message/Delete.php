@@ -66,11 +66,11 @@ class Delete extends Action implements HttpPostActionInterface
         try {
             $collection = $this->filter->getCollection($this->collectionFactory->create());
             $ids = array_map('intval', $collection->getAllIds());
-            $deleted = $ids === [] ? 0 : $this->resource->getConnection()->delete(
+            $deleted = $ids === [] ? 0 : $this->resource->getAdapter()->delete(
                 $this->resource->getMainTable(),
                 ['entity_id IN (?)' => $ids]
             );
-            $this->messageManager->addSuccessMessage(__('%1 text(s) were deleted.', $deleted));
+            $this->messageManager->addSuccessMessage((string) __('%1 text(s) were deleted.', $deleted));
         } catch (\Exception $exception) {
             $this->messageManager->addErrorMessage($exception->getMessage());
         }

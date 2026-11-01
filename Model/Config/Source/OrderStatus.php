@@ -29,7 +29,9 @@ class OrderStatus implements OptionSourceInterface
     }
 
     /**
-     * @inheritdoc
+     * Every status, code and label.
+     *
+     * @return array<int,array{value:string,label:mixed}>
      */
     public function toOptionArray()
     {

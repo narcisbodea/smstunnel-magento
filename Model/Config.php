@@ -213,9 +213,15 @@ class Config
      */
     public function getStatusChangeStatuses(?int $storeId): array
     {
-        $value = (string) $this->getValue(self::XML_STATUSES, $storeId);
+        $statuses = [];
+        foreach (explode(',', (string) $this->getValue(self::XML_STATUSES, $storeId)) as $status) {
+            $status = trim($status);
+            if ($status !== '') {
+                $statuses[] = $status;
+            }
+        }
 
-        return array_values(array_filter(array_map('trim', explode(',', $value)), 'strlen'));
+        return $statuses;
     }
 
     /**
